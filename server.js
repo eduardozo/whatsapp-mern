@@ -30,3 +30,16 @@ app.use(express.static('whatsapp-frontend/build'));
 
 /*Cross-Origin Resource Sharing*/
 app.use(cors());
+
+
+// DB config
+const admin = process.env.SERVER_MONGODB_ADMIN;
+const password = process.env.SERVER_MONGODB_PASSWORD;
+const dataBaseName = process.env.SERVER_MONGODB_DATABASE_NAME;
+const connectionUrl = `mongodb+srv://${admin}:${password}@cluster0.15djf.mongodb.net/${dataBaseName}?retryWrites=true&w=majority`;
+
+mongoose.connect(connectionUrl, {
+    useCreateIndex: true,
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+});
