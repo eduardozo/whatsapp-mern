@@ -43,3 +43,17 @@ mongoose.connect(connectionUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
+
+const db = mongoose.connection;
+db.on('error', console
+    .error
+    .bind(console, 'DB: Connection Error'));
+db.once('open', () => {
+    console.log('DB connected.')
+
+    const msgCollection = db.collection('chatrooms');
+    const changeStream = msgCollection.watch(
+        [],
+        { fullDocument : "updateLookup" }
+    );
+});
