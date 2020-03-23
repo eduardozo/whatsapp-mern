@@ -56,4 +56,33 @@ db.once('open', () => {
         [],
         { fullDocument : "updateLookup" }
     );
+
+    /*Listening for changes in DB*/
+    changeStream.on('change', (change) => {
+        if (change.operationType === 'insert') {
+            const chatRoomDetails = change.fullDocument;
+            pusher.trigger('chatroom', 'inserted',
+                {
+                    _id: chatRoomDetails._id,
+                    roomName: chatRoomDetails.roomName,
+                    messages: chatRoomDetails.messages
+                });
+        } else if (change.operationType === 'update') {
+            const chatRoom = change.fullDocument;
+            const roomId = chatRoom._id;
+            const msgDetails = chatRoom.messages[chatRoom.messages.length - 1];
+            pusher.trigger('chatroom', 'updated',
+                {
+                    roomId: roomId,
+                    _id: msgDetails._id,
+                    userId: msgDetails.userId,
+                    userName: msgDetails.userName,
+                    message: msgDetails.message,
+                    timestamp: msgDetails.timestamp,
+                    seen: msgDetails.seen
+                });
+        } else {
+            console.error('Error triggering Pusher');
+        }
+    });
 });
