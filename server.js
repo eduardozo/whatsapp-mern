@@ -86,3 +86,10 @@ db.once('open', () => {
         }
     });
 });
+
+
+// API routes
+app.get('/', (req, res) => {
+    const __dirname = path.resolve();
+    res.sendFile(path.join(__dirname, './whatsapp-frontend/build/index.html'));
+});
