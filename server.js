@@ -133,3 +133,12 @@ app.post('/api/v1/chatroom/message/new', (req, res) => {
         }
     });
 });
+
+
+if (process.env.NODE_ENV === 'production') {
+    console.log('Live');
+    app.use(express.static('whatsapp-frontend/build'));
+}
+
+// Listeners
+app.listen(port, () => console.log(`Listening on localhost:${port}`));
