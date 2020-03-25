@@ -93,3 +93,43 @@ app.get('/', (req, res) => {
     const __dirname = path.resolve();
     res.sendFile(path.join(__dirname, './whatsapp-frontend/build/index.html'));
 });
+
+
+/*Create a new chatRoom*/
+app.post('/api/v1/chatroom/new', (req, res) => {
+    const ChatRoomFields = req.body;
+
+    ChatRoom.create(ChatRoomFields, (err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(201).send(data);
+        }
+    });
+});
+
+/*Get all ChatRooms*/
+app.get('/api/v1/chatroom/sync', (req, res) => {
+    ChatRoom.find((err, data) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            res.status(200).send(data);
+        }
+    });
+});
+
+/*Create a new message*/
+app.post('/api/v1/chatroom/message/new', (req, res) => {
+    const roomId = req.body._id;
+    const message = req.body.messages;
+    ChatRoom.findOne({_id: roomId}).exec((err, chatRoom) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            chatRoom.messages.push(message);
+            chatRoom.save();
+            res.status(200).send(chatRoom);
+        }
+    });
+});
