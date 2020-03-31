@@ -1,0 +1,14 @@
+{
+  "short_name": "EZ-WhatsApp",
+  "name": "EZ-WhatsApp",
+  "icons": [
+    {
+      "src": "whatsapp-icon.svg",
+      "sizes": "72x72 96x96 120x120 128x128 192x192 256x256 512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#075E54",
+  "background_color": "#dadbd3"
+}
