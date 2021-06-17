@@ -1,4 +1,6 @@
 # WhatsApp Clone [PWA]
+![GitHub](https://img.shields.io/github/license/eduardozo/whatsapp-mern?style=flat)
+
 This build replicates the WhatsApp web-app UI & UX design. Users can sign up through the Google Authenticator and 
 interact with public chat rooms in realtime, both backend and frontend working independently from each other using 
 the MERN Stack.
@@ -80,7 +82,7 @@ $ nodemon server.js
 # Clone this repository
 $ git clone https://github.com/eduardozo/whatsapp-mern.git
 
-Access the project folder in your terminal
+# Access the project folder in your terminal
 $ cd whatsapp-mern
 
 # Go to the Front End application folder
